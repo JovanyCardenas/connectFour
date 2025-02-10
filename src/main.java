@@ -14,7 +14,7 @@ public class main extends JFrame {
     }
     public main(){
         super.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        super.setSize(500, 500);
+        super.setSize(700, 700);
         super.setLocationRelativeTo(null);
         super.setTitle("Connect Four");
         build();
@@ -79,8 +79,21 @@ public class main extends JFrame {
             JOptionPane.showMessageDialog(this, "Player " + (player + 1) + " won!");
             resetGame();
         }else{
+            checkTie(row, column);
             player = 1 - player; // Switch players
         }
+    }
+    private boolean checkTie(int row, int column){
+        for(int r = 0; r < 7; r++){ // Check if any empty space is left
+            for (int c = 0; c < 7; c++){
+                if (board[r][c] == 0){
+                    return false; // There is still an empty space, not a tie
+                }
+            }
+        }
+        JOptionPane.showMessageDialog(this, "It's a tie!");
+        resetGame();
+        return true;
     }
     private boolean checkWinCondition(int row, int col){
         int currentPlayer = board[row][col];
